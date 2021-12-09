@@ -1,4 +1,4 @@
-package com.example.lab1;
+package com.example.lab1.lab3;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.lab1.R;
 
 import java.time.LocalDateTime;
 

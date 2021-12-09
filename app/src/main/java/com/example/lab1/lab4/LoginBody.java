@@ -1,4 +1,4 @@
-package com.example.lab1.api;
+package com.example.lab1.lab4;
 
 public class LoginBody {
     public String login;

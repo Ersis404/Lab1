@@ -1,9 +1,10 @@
-package com.example.lab1;
+package com.example.lab1.lab2;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+import com.example.lab1.R;
 
 public class Lab2Activity extends AppCompatActivity {
 

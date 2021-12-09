@@ -1,4 +1,4 @@
-package com.example.lab1;
+package com.example.lab1.lab3;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -8,9 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import org.xml.sax.DTDHandler;
-
-import java.time.LocalDateTime;
+import com.example.lab1.R;
 
 public class ActivityLab3_4 extends AppCompatActivity implements View.OnClickListener {
 

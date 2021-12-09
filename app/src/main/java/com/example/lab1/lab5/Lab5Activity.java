@@ -1,18 +1,16 @@
 package com.example.lab1.lab5;
 
-import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.*;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -29,19 +27,32 @@ import java.io.IOException;
 
 
 public class Lab5Activity extends AppCompatActivity  {
-
+    public static final String EXTRA_MESSAGE = "com.example.fifthapp.MESSAGE";
     //    public File filesDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
     public String fileName;
     private Button button, button2, button3;
     private EditText idJournal;
     private TextView status;
     private String pAth = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/Journals/";
+    private Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lab5);
 
+        dialog = new Dialog(this, R.style.DialogCustomTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(R.layout.poupwindow);
+        dialog.show();
+
+        if (getDialogStatus()) {
+            dialog.hide();
+        } else {
+            dialog.show();
+        }
 
 
 //        final CheckBox checkBox = (CheckBox)findViewById(R.id.checkBox2);
@@ -141,7 +152,7 @@ public class Lab5Activity extends AppCompatActivity  {
         file.delete();
         disableBtn();
         Toast toast = Toast.makeText(getApplicationContext(),
-                "Файл успешно удвлен!", Toast.LENGTH_SHORT);
+                "Файл успешно удален!", Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -153,19 +164,9 @@ public class Lab5Activity extends AppCompatActivity  {
         RetrofitDownload retrofitDownload = retrofit.create(RetrofitDownload.class);
         fileName = idJournal.getText() + ".pdf";
         Call<ResponseBody> call = retrofitDownload.downloadRetrofit(fileName);
-
-
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-//                File filesDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-//                assert filesDir != null;
-//                File filesDir = new File(pAth);
-//                if (!filesDir.exists()) {
-//                    filesDir.mkdirs();
-//                }
-
                 try {
                     if( response.code() == 404){
                         Toast.makeText(getApplicationContext(), "Файл с таким id не найден!", Toast.LENGTH_SHORT).show();
@@ -196,7 +197,31 @@ public class Lab5Activity extends AppCompatActivity  {
         });
     }
 
-//    @Override
+    private void storeDialogStatus(boolean isChecked) {
+        SharedPreferences mSharedPreferences = getSharedPreferences("CheckItem", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean("item", isChecked);
+        mEditor.apply();
+    }
+
+    private boolean getDialogStatus() {
+        SharedPreferences mSharedPreferences = getSharedPreferences("CheckItem", MODE_PRIVATE);
+        return mSharedPreferences.getBoolean("item", false);
+    }
+
+    public void closeDialog(View view) {
+        dialog.dismiss();
+    }
+
+    public void onCheckboxClicked(View view) {
+        CheckBox checkBox = (CheckBox) view;
+        if (checkBox.isChecked()) {
+            storeDialogStatus(true);
+        } else {
+            storeDialogStatus(false);
+        }
+    }
+
     public void readPDF(View v) {
 //        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
 //        StrictMode.setVmPolicy(builder.build());

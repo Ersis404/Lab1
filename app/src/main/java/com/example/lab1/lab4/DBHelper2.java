@@ -1,9 +1,8 @@
-package com.example.lab1.api;
+package com.example.lab1.lab4;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import retrofit2.Callback;
 
 public class DBHelper2 extends SQLiteOpenHelper {
 

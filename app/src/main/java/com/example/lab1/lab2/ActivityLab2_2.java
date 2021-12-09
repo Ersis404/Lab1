@@ -1,7 +1,8 @@
-package com.example.lab1;
+package com.example.lab1.lab2;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.lab1.R;
 
 public class ActivityLab2_2 extends AppCompatActivity {
 

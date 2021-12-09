@@ -1,4 +1,4 @@
-package com.example.lab1;
+package com.example.lab1.lab1;
 
 import android.content.Intent;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.lab1.R;
 
 public class ActivityNext extends AppCompatActivity implements View.OnClickListener {
 
